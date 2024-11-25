@@ -38,25 +38,6 @@ const { useState, useEffect } = React;
 // Initial list of words
 const WORDS = ['javascript', 'react', 'coding', 'interface', 'function', 'variable', 'component', 'render', 'useState', 'props'];
 
-/**
- * shuffle()
- * Shuffle the contents of an array or string.
- * @Parameters: Array or string
- * @Return: Scrambled Array or string, based on the provided parameter
- */
-function shuffle(src) {
-  const copy = [...src];
-  const length = copy.length;
-  for (let i = 0; i < length; i++) {
-    const x = copy[i];
-    const y = Math.floor(Math.random() * length);
-    const z = copy[y];
-    copy[i] = z;
-    copy[y] = x;
-  }
-  return typeof src === 'string' ? copy.join('') : copy;
-}
-
 function ScrambleGame() {
   // Initial game state
   const initialGameState = {
@@ -164,4 +145,5 @@ function ScrambleGame() {
 }
 
 // Render the game
-ReactDOM.render(<ScrambleGame />, document.getElementById('root'));
+ReactDOM.createRoot(document.body).render(<ScrambleGame />);
+
