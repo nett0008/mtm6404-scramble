@@ -41,7 +41,7 @@ const WORDS = ['javascript', 'react', 'coding', 'interface', 'function', 'variab
 function ScrambleGame() {
   // Initial game state
   const initialGameState = {
-    words: shuffle(WORDS),
+    words: WORDS,
     currentWordIndex: 0,
     points: 0,
     strikes: 0,
@@ -70,9 +70,16 @@ function ScrambleGame() {
     localStorage.removeItem('scrambleGameState');
   }
 
-  // Get current scrambled word
+  // Get current word and its scrambled version (only once when the word changes)
   const currentWord = gameState.words[gameState.currentWordIndex];
-  const scrambledWord = shuffle(currentWord);
+  
+  // State for scrambled word
+  const [scrambledWord, setScrambledWord] = useState(() => shuffle(currentWord));
+
+  // Update scrambled word when the word changes
+  useEffect(() => {
+    setScrambledWord(shuffle(currentWord));
+  }, [gameState.currentWordIndex]);
 
   // Handle guess submission
   function handleGuess(e) {
@@ -146,4 +153,3 @@ function ScrambleGame() {
 
 // Render the game
 ReactDOM.createRoot(document.body).render(<ScrambleGame />);
-
